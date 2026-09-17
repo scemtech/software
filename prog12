@@ -1,0 +1,60 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+
+class GoogleFormAutomation:
+
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+
+    def fill_form(self):
+        self.driver.get("https://forms.gle")
+        self.driver.maximize_window()
+
+        time.sleep(3)
+
+        # Enter your name
+        name = "Your Name"
+
+        name_input = self.driver.find_element(
+            By.XPATH,
+            '//input[@aria-labelledby="i14"]'
+        )
+
+        name_input.send_keys(name)
+
+        time.sleep(2)
+
+        # Enter your USN
+        usn = "Your USN"
+
+        usn_input = self.driver.find_element(
+            By.XPATH,
+            '//input[@aria-labelledby="i69"]'
+        )
+
+        usn_input.send_keys(usn)
+
+        time.sleep(2)
+
+        # Submit the form
+        submit = self.driver.find_element(
+            By.XPATH,
+            '//span[contains(text(),"Submit")]'
+        )
+
+        submit.click()
+
+        time.sleep(3)
+
+    def tearDown(self):
+        self.driver.quit()
+
+
+if __name__ == "__main__":
+    automation = GoogleFormAutomation()
+
+    automation.setUp()
+    automation.fill_form()
+    automation.tearDown()
