@@ -1,0 +1,43 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+
+class GoogleMapsAutomation:
+
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+
+    def search_location(self):
+        try:
+            self.driver.get("https://www.google.com/maps/")
+            self.driver.maximize_window()
+
+            time.sleep(3)
+
+            name = input("Enter Location: ")
+
+            # Find Google Maps search box
+            search_input = self.driver.find_element(
+                By.ID, "searchboxinput"
+            )
+
+            search_input.send_keys(name)
+            search_input.send_keys(Keys.ENTER)
+
+            time.sleep(5)
+
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+
+    def tearDown(self):
+        self.driver.quit()
+
+
+if __name__ == "__main__":
+    automation = GoogleMapsAutomation()
+
+    automation.setUp()
+    automation.search_location()
+    automation.tearDown()
